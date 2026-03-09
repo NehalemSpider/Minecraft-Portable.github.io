@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minecraft Portables</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #000;
+      --sidebar-w: 100px;
+      --text: #ccc;
+      --text-dim: #555;
+      --text-bright: #eee;
+      --accent: #4a8f28;
+      --border: #1e1e1e;
+      --link: #7ecfff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: #000;
+      border-right: 1px solid var(--border);
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 50;
+    }
+
+    .logo {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-bright);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      letter-spacing: 0.01em;
+    }
+
+    aside a {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 3px 0;
+      transition: color 0.15s;
+    }
+    aside a:hover { color: var(--text-bright); }
+    aside a.active { color: var(--text-bright); }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── BANNER ── */
+    .banner {
+      width: 100%;
+      height: 175px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: #0a0a0a;
+    }
+
+    .banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      opacity: 0.82;
+      display: block;
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      padding: 30px 36px 60px;
+      max-width: 680px;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    ul.clean {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    ul.clean li {
+      padding: 3px 0 3px 12px;
+      position: relative;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    ul.clean li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+    }
+    ul.clean li a { color: var(--link); text-decoration: none; }
+    ul.clean li a:hover { text-decoration: underline; }
+    ul.clean li.dim { color: var(--text-dim); }
+
+    .sep {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 26px 0;
+    }
+
+    .releases-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .releases-row .label { margin: 0; }
+
+    .pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      background: #111;
+      border: 1px solid #333;
+      color: #ccc;
+      padding: 4px 12px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.15s;
+      display: inline-block;
+    }
+    .pill:hover, .pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .steps-box {
+      background: #080808;
+      border: 1px solid var(--border);
+      padding: 22px 26px;
+      margin-bottom: 28px;
+    }
+    .steps-box h3 {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .step-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .step-row .num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      flex-shrink: 0;
+      padding-top: 1px;
+      min-width: 22px;
+    }
+    .step-row.hl {
+      background: #0e0e06;
+      border-left: 2px solid #775f00;
+      padding: 8px 12px;
+      margin-left: -12px;
+      color: #d0d0aa;
+      border-radius: 0 2px 2px 0;
+    }
+
+    footer {
+      margin-left: var(--sidebar-w);
+      padding: 14px 36px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">Minecraft<br>Portables</div>
+    <a href="index.html" class="active">Home</a>
+    <a href="1.18.2.html">1.18.2</a>
+  </aside>
+
+  <div class="page">
+    <div class="banner">
+      <img src="https://i.imgur.com/bsLLmDj.jpeg" alt=""
+        onerror="this.parentElement.style.background='#111';this.style.display='none';" />
+    </div>
+
+    <div class="content">
+
+      <p class="label">Minecraft Portables Released</p>
+      <ul class="clean">
+        <li><a href="1.18.2.html">1.18.2 (With Fabric, Optifine HD U H7 And Vanilla)</a></li>
+      </ul>
+
+      <hr class="sep">
+
+      <p class="label">Minecraft Portable on WIP (Work In Progress)</p>
+      <ul class="clean">
+        <li class="dim">1.17.1</li>
+        <li class="dim">1.16.5</li>
+        <li class="dim">1.20.1</li>
+        <li class="dim">1.21.1</li>
+        <li class="dim">1.21.11</li>
+      </ul>
+
+      <hr class="sep">
+
+      <div class="releases-row">
+        <p class="label">Releases</p>
+        <a href="1.18.2.html" class="pill active">1.18.2</a>
+      </div>
+
+      <div class="steps-box">
+        <h3>Steps to Run the Minecraft</h3>
+        <div class="step-row"><span class="num">(1)</span><span>Extract the files from .zip</span></div>
+        <div class="step-row"><span class="num">(2)</span><span>Open the folder that you extracted the files in</span></div>
+        <div class="step-row"><span class="num">(3)</span><span>Click Start.bat</span></div>
+        <div class="step-row"><span class="num">(4)</span><span>It will Ask you for Username, Enter your Username and Y to Remember (If Needed)</span></div>
+        <div class="step-row hl">
+          <span class="num">(5)</span>
+          <span>After That, It Will ask you for Minecraft Versions (Vanilla, Fabric (With Sodium), Optifine HD U H7). Vanilla will Run Minecraft Without Mods — Its Pure Minecraft. Fabric will run Sodium And Other Performance Mods, it's modern and really good for Performance. Optifine HD U H7 is Better for Old Computers because of it's compatibility</span>
+        </div>
+        <div class="step-row"><span class="num">(6)</span><span>And Finally you can Play MINECRAFT ON Your Flash Drive!</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>OpenLabNetwork 2019–2026 (C)</span>
+    <span>Not Affiliated With Mojang Or Microsoft</span>
+  </footer>
+
+</body>
+</html>
